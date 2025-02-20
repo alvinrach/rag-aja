@@ -1,0 +1,5 @@
+.env
+venv
+__pycache__
+data/linkaja_pair_question_answer.json
+chroma_db
