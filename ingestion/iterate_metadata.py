@@ -20,7 +20,7 @@ storage_context = StorageContext.from_defaults(vector_store=vector_store)
 documents = []
 for item in data:
     print(item)
-    chunk_text = f"Question: {item['question']}\nAnswer: {item['answer']}"
+    chunk_text = f"Pertanyaan: {item['question']}\nJawaban: {item['answer']}"
     metadata = {"topik": item["topik"], "level": item["level"]}
     documents.append(Document(text=chunk_text, metadata=metadata))
 index = VectorStoreIndex.from_documents(
