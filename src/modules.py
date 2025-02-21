@@ -51,7 +51,14 @@ def rag_query_nonload(query):
     )
     response = query_engine.query(query)
 
-    return response.response
+    res = {
+        "response" : response.response,
+        "score": response.source_nodes[0].score,
+        "metadata" : list(list(response.metadata.values())[0].values())
+    }
+
+    print(res)
+    return res
 
 def rag_query(query):
     documents = SimpleDirectoryReader("data").load_data()
