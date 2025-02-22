@@ -81,7 +81,7 @@ def rag_query(query):
 
 
     db = chromadb.PersistentClient(path="./chroma_db")
-    chroma_collection = db.get_or_create_collection("firstdoc")
+    chroma_collection = db.get_or_create_collection("seconddoc")
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
