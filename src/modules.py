@@ -1,24 +1,13 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-import json
-from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, PromptTemplate, Document
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, PromptTemplate
 from llama_index.embeddings.fastembed import FastEmbedEmbedding
 from llama_index.llms.gemini import Gemini
 from llama_index.core import Settings
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core import StorageContext
 import chromadb
-
-with open("data/linkaja_pair_question_answer.json", "r") as f:
-    data = json.load(f)
-
-documents = []
-for item in data:
-    # print(item)
-    chunk_text = f"Pertanyaan: {item['question']}\nJawaban: {item['answer']}"
-    metadata = {"topik": item["topik"], "level": item["level"]}
-    documents.append(Document(text=chunk_text, metadata=metadata))
 
 def rag_query_nonload(query):
     embed_model = FastEmbedEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")
@@ -35,8 +24,8 @@ def rag_query_nonload(query):
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
-    index = VectorStoreIndex.from_documents(
-        documents,
+    index = VectorStoreIndex.from_vector_store(
+        vector_store=vector_store,
         storage_context=storage_context,
         embed_model=embed_model
     )
@@ -85,8 +74,8 @@ def rag_query(query):
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
-    index = VectorStoreIndex.from_documents(
-        documents,
+    index = VectorStoreIndex.from_vector_store(
+        vector_store=vector_store,
         storage_context=storage_context,
         embed_model=embed_model
     )
