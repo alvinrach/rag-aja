@@ -20,7 +20,7 @@ def get_query_engine(model_name="gemini"):
     Settings.llm = llm
     Settings.embed_model = embed_model
 
-    db = chromadb.PersistentClient(path="../chroma_db")
+    db = chromadb.PersistentClient(path="./chroma_db")
     chroma_collection = db.get_or_create_collection("seconddoc")
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
 
