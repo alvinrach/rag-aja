@@ -83,3 +83,4 @@ Embedings basically is a vector representation of words and sentences. Vector em
 - https://docs.llamaindex.ai/en/stable/understanding/rag/
 - https://docs.llamaindex.ai/en/stable/examples/cookbooks/oreilly_course_cookbooks/Module-3/Evaluating_RAG_Systems/#relevency-evaluation
 - https://medium.com/@med.el.harchaoui/rag-evaluation-metrics-explained-a-complete-guide-dbd7a3b571a8
+- https://www.elastic.co/what-is/vector-embedding
