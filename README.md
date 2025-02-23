@@ -19,14 +19,6 @@ Ingest your data first by doing
 python ingestion/iterate_metadata.py
 ```
 
-# To use docker
-
-```
-cd rag-aja
-docker build -t linkaja .
-docker run -d --name linkaja_container -p 8501:8501 linkaja
-```
-
 # Models Spec
 
 - LLM : gemini or gpt-4o-mini
@@ -37,6 +29,14 @@ docker run -d --name linkaja_container -p 8501:8501 linkaja
 
 ```
 streamlit run dashboard.py
+```
+
+# To use docker
+
+```
+cd rag-aja
+docker build -t linkaja .
+docker run -d --name linkaja_container -p 8501:8501 linkaja
 ```
 
 ## Preprocessing Step
