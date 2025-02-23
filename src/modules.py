@@ -56,7 +56,7 @@ def get_query_engine(model_name="gemini"):
 
 
 def get_query_engine_dashboard(query):
-    query_engine, _, _ = get_query_engine("gpt-4o")
+    query_engine, _, _ = get_query_engine()
     response = query_engine.query(query)
 
     res = {
