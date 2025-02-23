@@ -11,6 +11,7 @@ COPY dashboard.py .
 COPY ingestion/ ingestion/
 COPY data/ data/
 COPY src/ src/
+COPY .env .env  
 
 # Run preprocessing script
 RUN python ingestion/iterate_metadata.py
