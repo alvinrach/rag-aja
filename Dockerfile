@@ -2,14 +2,21 @@ FROM python:3.12.8-slim
 
 WORKDIR /app
 
+# Install dependencies first for better caching
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Copy only necessary files
+COPY dashboard.py .
+COPY ingestion/ ingestion/
+COPY data/ data/
+COPY src/ src/
 
+# Run preprocessing script
 RUN python ingestion/iterate_metadata.py
 
+# Expose Streamlit port
 EXPOSE 8501
 
-CMD streamlit run dashboard.py --server.address=0.0.0.0
+# Start the Streamlit app
+CMD ["streamlit", "run", "dashboard.py", "--server.address=0.0.0.0"]
