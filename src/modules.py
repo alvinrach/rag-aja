@@ -12,10 +12,14 @@ from llama_index.core import StorageContext
 import chromadb
 
 
+# Function to be used mostly in the evaluation notebook
 def get_query_engine(model_name="gemini"):
+    # Use one of the smallest embedding model
     embed_model = FastEmbedEmbedding(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
+
+    # Give choices for models
     if model_name == "gemini":
         llm = Gemini(model="models/gemini-2.0-flash")
     elif model_name == "gpt-4o-mini":
@@ -26,6 +30,7 @@ def get_query_engine(model_name="gemini"):
     Settings.llm = llm
     Settings.embed_model = embed_model
 
+    # Initiate/connect local vector database
     db = chromadb.PersistentClient(path="./chroma_db")
     chroma_collection = db.get_or_create_collection("seconddoc")
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
@@ -36,6 +41,7 @@ def get_query_engine(model_name="gemini"):
 
     query_engine = index.as_query_engine()
 
+    # Modify prompt for querying
     qa_prompt_tmpl_str = (
         "Informasi konteks ada di bawah ini.\n"
         "---------------------\n"
@@ -52,11 +58,15 @@ def get_query_engine(model_name="gemini"):
         {"response_synthesizer:text_qa_template": qa_prompt_tmpl}
     )
 
+    # Return several testing (mostly to be tested in eval notebook) so testing result can align with the web app
     return query_engine, index, chroma_collection
 
 
+# Function to be used mostly in the Streamlit code
 def get_query_engine_dashboard(query):
     query_engine, _, _ = get_query_engine()
+
+    # Get response of the RAG
     response = query_engine.query(query)
 
     res = {
