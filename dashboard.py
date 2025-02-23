@@ -1,12 +1,11 @@
 import streamlit as st
-from src.modules import rag_query_nonload
+from src.modules import get_query_engine_dashboard
 
 st.title("Rag Agent")
 
 query = st.text_input("Input Your Question")
 if query:
-    result = rag_query_nonload(query)
-
+    result = get_query_engine_dashboard(query)
     st.write("The result for your question:")
 
     if result["score"]>=0.3:
