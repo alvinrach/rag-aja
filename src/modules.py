@@ -16,6 +16,8 @@ def get_query_engine(model_name="gemini"):
         llm = Gemini(model="models/gemini-2.0-flash")
     elif model_name=="gpt-4o-mini":
         llm = OpenAI(model="gpt-4o-mini", temperature=0.1)
+    else:
+        raise Exception("choices for model_name only 'gemini' and 'gpt-4o-mini'")
 
     Settings.llm = llm
     Settings.embed_model = embed_model
@@ -50,7 +52,7 @@ def get_query_engine(model_name="gemini"):
     return query_engine, index, chroma_collection
 
 def get_query_engine_dashboard(query):
-    query_engine, _, _ = get_query_engine()
+    query_engine, _, _ = get_query_engine("gpt-4o")
     response = query_engine.query(query)
 
     res = {
