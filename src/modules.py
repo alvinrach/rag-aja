@@ -63,8 +63,8 @@ def get_query_engine(model_name="gemini"):
 
 
 # Function to be used mostly in the Streamlit code
-def get_query_engine_dashboard(query):
-    query_engine, _, _ = get_query_engine()
+def get_query_engine_dashboard(query, model):
+    query_engine, _, _ = get_query_engine(model)
 
     # Get response of the RAG
     response = query_engine.query(query)

@@ -3,9 +3,10 @@ from src.modules import get_query_engine_dashboard
 
 st.title("Rag Agent")
 
+model = st.selectbox("Choose Model", options=["gemini", "gpt-4o-mini"], index=None)
 query = st.text_input("Input Your Question")
-if query:
-    result = get_query_engine_dashboard(query)
+if query and model:
+    result = get_query_engine_dashboard(query, model)
     st.write("The result for your question:")
 
     if result["score"] >= 0.3:
@@ -31,3 +32,5 @@ if query:
         st.markdown(tag_html, unsafe_allow_html=True)
 
     st.write(result["response"])
+elif query and not model:
+    st.warning("Choose model first")
