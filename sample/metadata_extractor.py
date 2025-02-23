@@ -9,15 +9,11 @@ from llama_index.core import SimpleDirectoryReader
 
 documents = SimpleDirectoryReader("data").load_data()
 
-llm = Gemini(
-    model="models/gemini-2.0-flash"
-)
+llm = Gemini(model="models/gemini-2.0-flash")
 
 Settings.llm = llm
 
-text_splitter = TokenTextSplitter(
-    separator=" ", chunk_size=512, chunk_overlap=128
-)
+text_splitter = TokenTextSplitter(separator=" ", chunk_size=512, chunk_overlap=128)
 title_extractor = TitleExtractor(nodes=5)
 qa_extractor = QuestionsAnsweredExtractor(questions=5)
 

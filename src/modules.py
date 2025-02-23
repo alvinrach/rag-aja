@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+
 load_dotenv()
 
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, PromptTemplate
@@ -10,11 +11,14 @@ from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core import StorageContext
 import chromadb
 
+
 def get_query_engine(model_name="gemini"):
-    embed_model = FastEmbedEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")
-    if model_name=="gemini":
+    embed_model = FastEmbedEmbedding(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
+    if model_name == "gemini":
         llm = Gemini(model="models/gemini-2.0-flash")
-    elif model_name=="gpt-4o-mini":
+    elif model_name == "gpt-4o-mini":
         llm = OpenAI(model="gpt-4o-mini", temperature=0.1)
     else:
         raise Exception("choices for model_name only 'gemini' and 'gpt-4o-mini'")
@@ -27,8 +31,7 @@ def get_query_engine(model_name="gemini"):
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
 
     index = VectorStoreIndex.from_vector_store(
-        vector_store=vector_store,
-        embed_model=embed_model
+        vector_store=vector_store, embed_model=embed_model
     )
 
     query_engine = index.as_query_engine()
@@ -51,14 +54,15 @@ def get_query_engine(model_name="gemini"):
 
     return query_engine, index, chroma_collection
 
+
 def get_query_engine_dashboard(query):
     query_engine, _, _ = get_query_engine("gpt-4o")
     response = query_engine.query(query)
 
     res = {
-        "response" : response.response,
+        "response": response.response,
         "score": response.source_nodes[0].score,
-        "metadata" : list(list(response.metadata.values())[0].values())
+        "metadata": list(list(response.metadata.values())[0].values()),
     }
 
     print(res)

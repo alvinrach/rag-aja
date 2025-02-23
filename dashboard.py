@@ -8,8 +8,9 @@ if query:
     result = get_query_engine_dashboard(query)
     st.write("The result for your question:")
 
-    if result["score"]>=0.3:
-        st.markdown("""
+    if result["score"] >= 0.3:
+        st.markdown(
+            """
             <style>
                 .tag {
                     display: inline-block;
@@ -22,10 +23,11 @@ if query:
                     font-weight: bold;
                 }
             </style>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
         tags = result["metadata"]
         tag_html = " ".join([f"<span class='tag'>{tag}</span>" for tag in tags])
         st.markdown(tag_html, unsafe_allow_html=True)
 
     st.write(result["response"])
-

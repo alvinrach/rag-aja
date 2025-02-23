@@ -24,8 +24,6 @@ for item in data:
     metadata = {"topik": item["topik"], "level": item["level"]}
     documents.append(Document(text=chunk_text, metadata=metadata))
 index = VectorStoreIndex.from_documents(
-    documents,
-    storage_context=storage_context,
-    embed_model=embed_model
+    documents, storage_context=storage_context, embed_model=embed_model
 )
 print(chroma_collection.count())
