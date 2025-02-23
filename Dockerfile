@@ -3,8 +3,8 @@ FROM python:3.12.8-slim
 WORKDIR /app
 
 # Install dependencies first for better caching
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements-lite.txt .
+RUN pip install --no-cache-dir -r requirements-lite.txt
 
 # Copy only necessary files
 COPY dashboard.py .
