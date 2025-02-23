@@ -74,6 +74,10 @@ tox
 
 And then see the summary.log for the mini report
 
+# Embeddings Concept
+
+Embedings basically is a vector representation of words and sentences. Vector embeddings are a way to convert words and sentences and other data into numbers that capture their meaning and relationships. There are several types of embeddings, among the well-known are word embeddings and sentence embeddings. 
+
 # References
 
 - https://docs.llamaindex.ai/en/stable/understanding/rag/
